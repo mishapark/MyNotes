@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mynotes/main.dart';
 import 'package:mynotes/views/register_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -61,20 +64,24 @@ class _LoginViewState extends State<LoginView> {
               final password = _password.text;
 
               try {
-                final userCredential =
-                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                await FirebaseAuth.instance.signInWithEmailAndPassword(
                   email: email,
                   password: password,
                 );
-                print(userCredential);
+
+                if (!mounted) return;
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  NotesView.id,
+                  (route) => false,
+                );
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
-                  print('User not found');
+                  log('User not found');
                 } else if (e.code == 'wrong-password') {
-                  print('Wrong password');
+                  log('Wrong password');
                 }
               } catch (e) {
-                print(e);
+                log(e.toString());
               }
             },
           ),
