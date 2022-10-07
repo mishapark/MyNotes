@@ -21,6 +21,7 @@ void main() {
         LoginView.id: (context) => const LoginView(),
         RegisterView.id: (context) => const RegisterView(),
         NotesView.id: (context) => const NotesView(),
+        VerifyEmailView.id: (context) => const VerifyEmailView(),
       },
     ),
   );
