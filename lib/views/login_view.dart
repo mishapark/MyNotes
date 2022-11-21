@@ -56,47 +56,55 @@ class _LoginViewState extends State<LoginView> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Text(context.loc.login_view_prompt),
-              TextField(
-                controller: _email,
-                enableSuggestions: false,
-                autocorrect: false,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: context.loc.email_text_field_placeholder,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(context.loc.login_view_prompt),
+                TextField(
+                  controller: _email,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: context.loc.email_text_field_placeholder,
+                  ),
                 ),
-              ),
-              TextField(
-                controller: _password,
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: InputDecoration(
-                    hintText: context.loc.password_text_field_placeholder),
-              ),
-              TextButton(
-                child: Text(context.loc.login),
-                onPressed: () async {
-                  final email = _email.text;
-                  final password = _password.text;
-                  context.read<AuthBloc>().add(AuthEventLogIn(email, password));
-                },
-              ),
-              TextButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(const AuthEventForgotPassword());
-                },
-                child: Text(context.loc.forgot_password),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(const AuthEventShouldRegister());
-                },
-                child: Text(context.loc.login_view_not_registered_yet),
-              )
-            ],
+                TextField(
+                  controller: _password,
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                      hintText: context.loc.password_text_field_placeholder),
+                ),
+                TextButton(
+                  child: Text(context.loc.login),
+                  onPressed: () async {
+                    final email = _email.text;
+                    final password = _password.text;
+                    context
+                        .read<AuthBloc>()
+                        .add(AuthEventLogIn(email, password));
+                  },
+                ),
+                TextButton(
+                  onPressed: () {
+                    context
+                        .read<AuthBloc>()
+                        .add(const AuthEventForgotPassword());
+                  },
+                  child: Text(context.loc.forgot_password),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context
+                        .read<AuthBloc>()
+                        .add(const AuthEventShouldRegister());
+                  },
+                  child: Text(context.loc.login_view_not_registered_yet),
+                )
+              ],
+            ),
           ),
         ),
       ),
